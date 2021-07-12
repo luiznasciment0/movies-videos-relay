@@ -8,19 +8,19 @@ export type AppQueryResponse = {
     readonly videosByTitle: {
         readonly items: ReadonlyArray<{
             readonly _id: {
-                readonly kind: string | null;
-                readonly videoId: string | null;
-            } | null;
+                readonly kind: string;
+                readonly videoId: string;
+            };
             readonly snippet: {
-                readonly title: string | null;
-            } | null;
-        } | null> | null;
+                readonly title: string;
+            };
+        } | null>;
     } | null;
     readonly moviesByTitle: {
         readonly Search: ReadonlyArray<{
-            readonly Title: string | null;
-            readonly Year: string | null;
-        } | null> | null;
+            readonly Title: string;
+            readonly Year: string;
+        } | null>;
     } | null;
 };
 export type AppQuery = {
