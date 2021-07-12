@@ -3,7 +3,9 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type AppQueryVariables = {};
+export type AppQueryVariables = {
+    title: string;
+};
 export type AppQueryResponse = {
     readonly videosByTitle: {
         readonly items: ReadonlyArray<{
@@ -31,8 +33,10 @@ export type AppQuery = {
 
 
 /*
-query AppQuery {
-  videosByTitle(title: "Ronaldinho") {
+query AppQuery(
+  $title: String!
+) {
+  videosByTitle(title: $title) {
     items {
       _id: id {
         kind
@@ -43,7 +47,7 @@ query AppQuery {
       }
     }
   }
-  moviesByTitle(title: "Ronaldinho") {
+  moviesByTitle(title: $title) {
     Search {
       Title
       Year
@@ -55,15 +59,22 @@ query AppQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "Literal",
-    "name": "title",
-    "value": "Ronaldinho"
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "title"
   }
 ],
 v1 = [
   {
+    "kind": "Variable",
+    "name": "title",
+    "variableName": "title"
+  }
+],
+v2 = [
+  {
     "alias": null,
-    "args": (v0/*: any*/),
+    "args": (v1/*: any*/),
     "concreteType": "VideosQueryType",
     "kind": "LinkedField",
     "name": "videosByTitle",
@@ -124,11 +135,11 @@ v1 = [
         "storageKey": null
       }
     ],
-    "storageKey": "videosByTitle(title:\"Ronaldinho\")"
+    "storageKey": null
   },
   {
     "alias": null,
-    "args": (v0/*: any*/),
+    "args": (v1/*: any*/),
     "concreteType": "MoviesQueryType",
     "kind": "LinkedField",
     "name": "moviesByTitle",
@@ -160,35 +171,35 @@ v1 = [
         "storageKey": null
       }
     ],
-    "storageKey": "moviesByTitle(title:\"Ronaldinho\")"
+    "storageKey": null
   }
 ];
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "AppQuery",
-    "selections": (v1/*: any*/),
+    "selections": (v2/*: any*/),
     "type": "RootQuery",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "AppQuery",
-    "selections": (v1/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "f47c1c159e990f9254aed1ef53ef312d",
+    "cacheID": "521617dfd249aa76837acb3118d61dba",
     "id": null,
     "metadata": {},
     "name": "AppQuery",
     "operationKind": "query",
-    "text": "query AppQuery {\n  videosByTitle(title: \"Ronaldinho\") {\n    items {\n      _id: id {\n        kind\n        videoId\n      }\n      snippet {\n        title\n      }\n    }\n  }\n  moviesByTitle(title: \"Ronaldinho\") {\n    Search {\n      Title\n      Year\n    }\n  }\n}\n"
+    "text": "query AppQuery(\n  $title: String!\n) {\n  videosByTitle(title: $title) {\n    items {\n      _id: id {\n        kind\n        videoId\n      }\n      snippet {\n        title\n      }\n    }\n  }\n  moviesByTitle(title: $title) {\n    Search {\n      Title\n      Year\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ab5965525dd27175a4adfd5442e52fd1';
+(node as any).hash = 'aa5423498eba81a6aa0967fccb4d9ab4';
 export default node;
