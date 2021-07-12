@@ -12,20 +12,23 @@ import './App.css';
 function App() {
   const [data, setData] = useState<AppQueryResponse>()
   const [inputValue, setInputValue] = useState('')
+  
+  const environment = RelayEnvironment
+  const appQuery = graphql`
+    query AppQuery($title: String!) {
+      videosByTitle (title: $title) {
+        items { _id: id { kind, videoId }, snippet { title } }
+      }
+      moviesByTitle (title: $title) {
+        Search { Title, Year }
+      }
+    }
+  `
 
   const fetchMoviesAndVideos = (title: string) => {
     fetchQuery<AppQuery>(
-      RelayEnvironment,
-      graphql`
-        query AppQuery($title: String!) {
-          videosByTitle (title: $title) {
-            items { _id: id { kind, videoId }, snippet { title } }
-          }
-          moviesByTitle (title: $title) {
-            Search { Title, Year }
-          }
-        }
-      `,
+      environment,
+      appQuery,
       {title: title}
     )
     .toPromise()
