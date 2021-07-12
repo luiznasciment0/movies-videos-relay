@@ -1,38 +1,33 @@
-/**
- * @flow
- */
-
+/* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
-'use strict';
+import { ConcreteRequest } from "relay-runtime";
+export type AppQueryVariables = {};
+export type AppQueryResponse = {
+    readonly videosByTitle: {
+        readonly items: ReadonlyArray<{
+            readonly _id: {
+                readonly kind: string | null;
+                readonly videoId: string | null;
+            } | null;
+            readonly snippet: {
+                readonly title: string | null;
+            } | null;
+        } | null> | null;
+    } | null;
+    readonly moviesByTitle: {
+        readonly Search: ReadonlyArray<{
+            readonly Title: string | null;
+            readonly Year: string | null;
+        } | null> | null;
+    } | null;
+};
+export type AppQuery = {
+    readonly response: AppQueryResponse;
+    readonly variables: AppQueryVariables;
+};
 
-/*::
-import type { ConcreteRequest } from 'relay-runtime';
-export type AppQueryVariables = {||};
-export type AppQueryResponse = {|
-  +videosByTitle: ?{|
-    +items: ?$ReadOnlyArray<?{|
-      +_id: ?{|
-        +kind: ?string,
-        +videoId: ?string,
-      |},
-      +snippet: ?{|
-        +title: ?string
-      |},
-    |}>
-  |},
-  +moviesByTitle: ?{|
-    +Search: ?$ReadOnlyArray<?{|
-      +Title: ?string,
-      +Year: ?string,
-    |}>
-  |},
-|};
-export type AppQuery = {|
-  variables: AppQueryVariables,
-  response: AppQueryResponse,
-|};
-*/
 
 
 /*
@@ -57,7 +52,7 @@ query AppQuery {
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
+const node: ConcreteRequest = (function(){
 var v0 = [
   {
     "kind": "Literal",
@@ -195,7 +190,5 @@ return {
   }
 };
 })();
-// prettier-ignore
-(node/*: any*/).hash = 'ab5965525dd27175a4adfd5442e52fd1';
-
-module.exports = node;
+(node as any).hash = 'ab5965525dd27175a4adfd5442e52fd1';
+export default node;
