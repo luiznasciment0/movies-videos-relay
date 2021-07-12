@@ -1,47 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense } from 'react';
+import { graphql } from 'babel-plugin-relay/macro'
+import {
+  RelayEnvironmentProvider,
+  loadQuery,
+  usePreloadedQuery,
+  PreloadedQuery,
+} from 'react-relay/hooks'
+
+import RelayEnvironment from './relay/RelayEnvironment'
 import './App.css';
-import fetchGraphQL from './services/fetchGraphQL';
+import { OperationType } from 'relay-runtime';
 
-function App() {
-  const [movieTitle, setMovieTitle] = useState(null)
-  const [videoTitle, setVideoTitle] = useState(null)
-
-  useEffect(() => {
-    let isMounted = true;
-    fetchGraphQL(`
-      query {
-        videosByTitle (title: "Ronaldinho") {
-          items { id { kind, videoId }, snippet { title } }
-        }
-        moviesByTitle (title: "Ronaldinho") {
-          Search { Title, Year }
-        }
-      }
-    `).then(response => {
-      if (!isMounted) {
-        return
-      }
-
-      const data = response.data
-      setMovieTitle(data.videosByTitle.items[0].snippet.title)
-      setVideoTitle(data.moviesByTitle.Search[0].Title)
-    }).catch(error => {
-      console.error(error)
-    })
-
-    return () => {
-      isMounted = false
+const MoviesAndVideosByTitleQuery = graphql`
+  query AppQuery {
+    videosByTitle (title: "Ronaldinho") {
+      items { _id: id { kind, videoId }, snippet { title } }
     }
-  }, [])
+    moviesByTitle (title: "Ronaldinho") {
+      Search { Title, Year }
+    }
+  }
+`
+
+const preloadedQuery = loadQuery(RelayEnvironment, MoviesAndVideosByTitleQuery, {})
+
+function App({ preloadedQuery }: { preloadedQuery: PreloadedQuery<OperationType, {}> }) {
+  const data: any = usePreloadedQuery(MoviesAndVideosByTitleQuery, preloadedQuery)
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>{movieTitle != null ? `Movie title: ${movieTitle}` : 'Loading'}</p>
-        <p>{videoTitle != null ? `Movie title: ${videoTitle}` : 'Loading'}</p>
+        <p>{data.videosByTitle.items[0].snippet.title}</p>
+        <p>{data.moviesByTitle.Search[0].Title}</p>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+function AppRoot() {
+  return (
+    <RelayEnvironmentProvider environment={RelayEnvironment}>
+      <Suspense fallback={'Loading...'}>
+        <App preloadedQuery={preloadedQuery} />
+      </Suspense>
+    </RelayEnvironmentProvider>
+  )
+}
+
+export default AppRoot;
