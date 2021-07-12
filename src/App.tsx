@@ -25,19 +25,13 @@ function App() {
     {},
   )
 
-  if (!data || !data.videosByTitle || !data.videosByTitle.items || !data.moviesByTitle || !data.moviesByTitle.Search) {
-    return (
-      <div>Loading...</div>
-    )
-  }
-
   return (
     <div className="App">
       <header className="App-header">
         <div>
           <p>Videos list</p>
           <ul>
-            {data.videosByTitle.items.map((item) => (
+            {data?.videosByTitle?.items.map((item) => (
               <li key={item?._id?.videoId}>Title: {item?.snippet?.title}</li>
             ))}
           </ul>
@@ -45,7 +39,7 @@ function App() {
         <div>
           <p>Movies list</p>
           <ul>
-            {data.moviesByTitle.Search.map((item) => (
+            {data?.moviesByTitle?.Search.map((item) => (
               <li key={`key-${item?.Title}-${item?.Year}`}>Title: {item?.Title}</li>
             ))}
           </ul>
