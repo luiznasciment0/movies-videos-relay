@@ -1,11 +1,8 @@
-import React from 'react';
-import {
-  RelayEnvironmentProvider,
-} from 'react-relay/hooks'
+import React from 'react'
+import { RelayEnvironmentProvider } from 'react-relay/hooks'
 
 import FormSearch from './components/FormSearch'
 import RelayEnvironment from './relay/RelayEnvironment'
-import './App.css';
 
 function AppRoot() {
   return (
@@ -15,4 +12,4 @@ function AppRoot() {
   )
 }
 
-export default AppRoot;
+export default AppRoot
