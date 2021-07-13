@@ -49,7 +49,6 @@ function FormSearch() {
         console.log('error', error)
       },
       next: (data) => {
-        console.log('next data', data)
         setData(data)
       }
     })
