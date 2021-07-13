@@ -7,6 +7,14 @@ export const ParentGrid = styled.div`
 
 export const LeftSide = styled.div`
   grid-column: 1 / 2;
+  &:hover {
+    background: #fff;
+
+    svg {
+      fill: #000;
+      stroke: #000;
+    }
+  }
 `
 
 export const Main = styled.main`
