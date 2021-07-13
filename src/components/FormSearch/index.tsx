@@ -45,7 +45,7 @@ function FormSearch() {
       complete: () => {
         console.log('complete')
       },
-      error: (error: any) => {
+      error: (error: Error) => {
         console.log('error', error)
       },
       next: (data) => {
