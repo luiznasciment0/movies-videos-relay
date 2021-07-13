@@ -12,7 +12,7 @@ type Props = {
 const LeftColumnItem = ({ icon }: Props) => {
   const itemMap: { [key: string]: { icon: JSX.Element; label: string } } = {
     search: {
-      icon: <SearchIcon fill="#fff" stroke="#fff" />,
+      icon: <SearchIcon fill="#fff" />,
       label: 'Busca'
     },
     home: {
