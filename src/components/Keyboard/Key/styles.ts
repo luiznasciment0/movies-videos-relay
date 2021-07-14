@@ -13,7 +13,7 @@ export const KeyboardKey = styled.div<KeyboardKeyProps>`
     max-width: fit-content;
     display: grid;
     place-items: center;
-    background: #000;
+    background: ${active ? '#d3d3d33b' : '#000'};
     color: #fff;
     border: 1px solid #fff;
   `}
