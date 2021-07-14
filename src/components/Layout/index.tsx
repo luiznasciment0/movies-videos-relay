@@ -4,6 +4,7 @@ import { TIcon } from 'models/IconType'
 
 import { LeftColumn, LeftSide, Main, ParentGrid, RightSide } from './styles'
 import LeftColumnItem from './LeftColumnItem'
+import Keyboard from 'components/Keyboard'
 
 const letfColumnItems: TIcon[] = ['search', 'home']
 
@@ -17,7 +18,9 @@ const Layout = () => {
           ))}
         </LeftColumn>
       </LeftSide>
-      <Main>Teste Main</Main>
+      <Main>
+        <Keyboard />
+      </Main>
       <RightSide>Teste Right Side</RightSide>
     </ParentGrid>
   )
