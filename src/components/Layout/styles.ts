@@ -20,6 +20,8 @@ export const LeftSide = styled.div`
 export const Main = styled.main`
   grid-column: 2 / 3;
   background: pink;
+  display: grid;
+  place-items: center;
 `
 
 export const RightSide = styled.div`
