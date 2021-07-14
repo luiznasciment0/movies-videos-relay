@@ -7,9 +7,9 @@ export const ParentGrid = styled.div`
 
 export const LeftSide = styled.div`
   grid-column: 1 / 2;
+  transition-duration: 0.3s;
   &:hover {
     background: #fff;
-
     svg {
       fill: #000;
       stroke: #000;
