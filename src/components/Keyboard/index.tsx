@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import KeyboardKey from './Key'
 
 import { keyboardKeys } from './keyboardKeys'
-import { Wrapper } from './styles'
+import { Keyboard as StyledKeyboard } from './styles'
 
 const Keyboard = () => {
   const [selected, setSelected] = useState()
   const [cursor, setCursor] = useState(0)
 
   return (
-    <div>
+    <StyledKeyboard>
       {keyboardKeys.map((item, index) => {
         return (
           <KeyboardKey
@@ -20,7 +20,7 @@ const Keyboard = () => {
           />
         )
       })}
-    </div>
+    </StyledKeyboard>
   )
 }
 
