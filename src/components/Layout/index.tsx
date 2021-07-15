@@ -2,9 +2,11 @@ import React, { useRef } from 'react'
 
 import { TIcon } from 'models/IconType'
 
+import Keyboard from 'components/Keyboard'
+import FormSearch from 'components/FormSearch'
+
 import { LeftColumn, LeftSide, Main, ParentGrid, RightSide } from './styles'
 import LeftColumnItem from './LeftColumnItem'
-import Keyboard from 'components/Keyboard'
 
 const letfColumnItems: TIcon[] = ['search', 'home']
 
@@ -23,7 +25,9 @@ const Layout = () => {
       <Main>
         <Keyboard leftColumnRef={leftColumnRef} />
       </Main>
-      <RightSide>Teste Right Side</RightSide>
+      <RightSide>
+        <FormSearch />
+      </RightSide>
     </ParentGrid>
   )
 }
