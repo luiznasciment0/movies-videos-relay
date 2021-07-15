@@ -1,12 +1,8 @@
-import React, { Suspense, useState } from 'react'
+import React from 'react'
 import { graphql } from 'babel-plugin-relay/macro'
-import { fetchQuery, useLazyLoadQuery } from 'react-relay/hooks'
+import { useLazyLoadQuery } from 'react-relay/hooks'
 
-import RelayEnvironment from '../../relay/RelayEnvironment'
-import {
-  FormSearchQuery,
-  FormSearchQueryResponse
-} from './__generated__/FormSearchQuery.graphql'
+import { FormSearchQuery } from './__generated__/FormSearchQuery.graphql'
 import { useSearch } from 'context/searchContext'
 
 const formSearchQuery = graphql`
