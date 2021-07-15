@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import { TIcon } from 'models/IconType'
 
@@ -9,9 +9,11 @@ import Keyboard from 'components/Keyboard'
 const letfColumnItems: TIcon[] = ['search', 'home']
 
 const Layout = () => {
+  const leftColumnRef = useRef<HTMLDivElement>(null)
+
   return (
     <ParentGrid>
-      <LeftSide>
+      <LeftSide ref={leftColumnRef}>
         <LeftColumn>
           {letfColumnItems.map((item, index) => (
             <LeftColumnItem icon={item} key={index} />
@@ -19,7 +21,7 @@ const Layout = () => {
         </LeftColumn>
       </LeftSide>
       <Main>
-        <Keyboard />
+        <Keyboard leftColumnRef={leftColumnRef} />
       </Main>
       <RightSide>Teste Right Side</RightSide>
     </ParentGrid>
