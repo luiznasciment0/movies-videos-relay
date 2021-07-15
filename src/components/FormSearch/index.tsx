@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import { graphql } from 'babel-plugin-relay/macro'
-import { fetchQuery } from 'react-relay/hooks'
+import { fetchQuery, useLazyLoadQuery } from 'react-relay/hooks'
 
 import RelayEnvironment from '../../relay/RelayEnvironment'
 import {
@@ -9,58 +9,41 @@ import {
 } from './__generated__/FormSearchQuery.graphql'
 import { useSearch } from 'context/searchContext'
 
-function FormSearch() {
-  const [data, setData] = useState<FormSearchQueryResponse>()
-  const { searchValue } = useSearch()
-
-  const environment = RelayEnvironment
-  const formSearchQuery = graphql`
-    query FormSearchQuery($title: String!) {
-      videosByTitle(title: $title) {
-        items {
-          _id: id {
-            kind
-            videoId
-          }
-          snippet {
-            title
-          }
+const formSearchQuery = graphql`
+  query FormSearchQuery($title: String!) {
+    videosByTitle(title: $title) {
+      items {
+        _id: id {
+          kind
+          videoId
         }
-      }
-      moviesByTitle(title: $title) {
-        Search {
-          Title
-          Year
+        snippet {
+          title
         }
       }
     }
-  `
-
-  const fetchMoviesAndVideos = (title: string) => {
-    fetchQuery<FormSearchQuery>(environment, formSearchQuery, {
-      title: title
-    }).subscribe({
-      start: () => {
-        console.log('start')
-      },
-      complete: () => {
-        console.log('complete')
-      },
-      error: (error: Error) => {
-        console.log('error', error)
-      },
-      next: (data) => {
-        setData(data)
+    moviesByTitle(title: $title) {
+      Search {
+        Title
+        Year
       }
-    })
+    }
   }
+`
+
+function FormSearch() {
+  const { searchValue } = useSearch()
+  const title = searchValue || ''
+  const data = useLazyLoadQuery<FormSearchQuery>(formSearchQuery, {
+    title
+  })
 
   return (
     <div className="App">
       <div>
         <p>Videos list</p>
         <ul>
-          {data?.videosByTitle?.items.map((item) => (
+          {data?.videosByTitle?.items?.map((item) => (
             <li key={item?._id?.videoId}>Title: {item?.snippet?.title}</li>
           ))}
         </ul>
@@ -68,7 +51,7 @@ function FormSearch() {
       <div>
         <p>Movies list</p>
         <ul>
-          {data?.moviesByTitle?.Search.map((item, index) => (
+          {data?.moviesByTitle?.Search?.map((item, index) => (
             <li key={`key-${item?.Title}-${index}`}>Title: {item?.Title}</li>
           ))}
         </ul>
