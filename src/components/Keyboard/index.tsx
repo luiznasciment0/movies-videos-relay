@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import KeyboardKey from './Key'
 
 import { keyboardKeys } from './keyboardKeys'
-import { Keyboard as StyledKeyboard } from './styles'
+import { Keyboard as StyledKeyboard, SearchValue } from './styles'
 import useKeyPress from './useKeyPress'
+
+type Props = {
+  leftColumnRef: React.RefObject<HTMLDivElement>
+}
 
 const rowLength = 6
 
-const Keyboard = () => {
+const Keyboard = ({ leftColumnRef }: Props) => {
   const [inputValue, setInputValue] = useState('')
   const [cursor, setCursor] = useState(0)
 
@@ -51,6 +55,10 @@ const Keyboard = () => {
   useKeyPress({
     key: 'ArrowLeft',
     action: () => {
+      if (currentItem?.positionInRow === 1) {
+        leftColumnRef.current?.focus()
+        return
+      }
       setCursor((prevState) => (prevState > 0 ? prevState - 1 : prevState))
     }
   })
@@ -71,7 +79,7 @@ const Keyboard = () => {
 
   return (
     <div>
-      <p>{inputValue} AAA</p>
+      <SearchValue>{inputValue}</SearchValue>
       <StyledKeyboard>
         {keyboardKeys.map((item, index) => (
           <KeyboardKey key={index} active={index === cursor} item={item} />
