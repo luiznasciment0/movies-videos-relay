@@ -7,10 +7,11 @@ import {
   FormSearchQuery,
   FormSearchQueryResponse
 } from './__generated__/FormSearchQuery.graphql'
+import { useSearch } from 'context/searchContext'
 
 function FormSearch() {
   const [data, setData] = useState<FormSearchQueryResponse>()
-  const [inputValue, setInputValue] = useState('')
+  const { searchValue } = useSearch()
 
   const environment = RelayEnvironment
   const formSearchQuery = graphql`
@@ -54,46 +55,24 @@ function FormSearch() {
     })
   }
 
-  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setInputValue(event.currentTarget.value)
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    fetchMoviesAndVideos(inputValue)
-  }
-
   return (
     <div className="App">
-      <header className="App-header">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="search">Search videos and movies</label>
-          <input
-            type="text"
-            name="search"
-            id="search"
-            onChange={handleChange}
-            value={inputValue}
-          />
-          <button type="submit">Search</button>
-        </form>
-        <div>
-          <p>Videos list</p>
-          <ul>
-            {data?.videosByTitle?.items.map((item) => (
-              <li key={item?._id?.videoId}>Title: {item?.snippet?.title}</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <p>Movies list</p>
-          <ul>
-            {data?.moviesByTitle?.Search.map((item, index) => (
-              <li key={`key-${item?.Title}-${index}`}>Title: {item?.Title}</li>
-            ))}
-          </ul>
-        </div>
-      </header>
+      <div>
+        <p>Videos list</p>
+        <ul>
+          {data?.videosByTitle?.items.map((item) => (
+            <li key={item?._id?.videoId}>Title: {item?.snippet?.title}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p>Movies list</p>
+        <ul>
+          {data?.moviesByTitle?.Search.map((item, index) => (
+            <li key={`key-${item?.Title}-${index}`}>Title: {item?.Title}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }
