@@ -3,7 +3,6 @@ import React from 'react'
 import SearchIcon from 'components/SvgIcons/SearchIcon'
 import HomeIcon from 'components/SvgIcons/HomeIcon'
 import { TIcon } from 'models/IconType'
-import { Wrapper } from './styles'
 
 type Props = {
   icon: TIcon
@@ -21,7 +20,7 @@ const LeftColumnItem = ({ icon }: Props) => {
     }
   }
 
-  return <Wrapper>{itemMap[icon].icon}</Wrapper>
+  return <div>{itemMap[icon].icon}</div>
 }
 
 export default LeftColumnItem
