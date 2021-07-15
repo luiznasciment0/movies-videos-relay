@@ -6,15 +6,10 @@ import { KeyboardKey as StyledKeyboardKey } from './styles'
 type KeyboardKeyProps = {
   item: TKeyboardKey
   active: boolean
-  setSelected: any
 }
 
-const KeyboardKey = ({ item, active, setSelected }: KeyboardKeyProps) => {
-  return (
-    <StyledKeyboardKey active={active} onClick={() => setSelected(item)}>
-      {item.label}
-    </StyledKeyboardKey>
-  )
+const KeyboardKey = ({ item, active }: KeyboardKeyProps) => {
+  return <StyledKeyboardKey active={active}>{item.label}</StyledKeyboardKey>
 }
 
 export default KeyboardKey
