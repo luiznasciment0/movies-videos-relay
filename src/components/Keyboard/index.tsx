@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useSearch } from 'context/searchContext'
+import React, { useEffect, useState } from 'react'
 import KeyboardKey from './Key'
 
 import { keyboardKeys } from './keyboardKeys'
@@ -14,10 +15,15 @@ const rowLength = 6
 const Keyboard = ({ leftColumnRef }: Props) => {
   const [inputValue, setInputValue] = useState('')
   const [cursor, setCursor] = useState(0)
+  const { setSearchValue } = useSearch()
 
   const currentItem = keyboardKeys[cursor]
   const rightItemsLength = rowLength - currentItem?.positionInRow
   const leftItemsLength = currentItem?.positionInRow - 1
+
+  useEffect(() => {
+    setSearchValue(inputValue)
+  }, [inputValue, setSearchValue])
 
   useKeyPress({
     key: 'ArrowDown',
