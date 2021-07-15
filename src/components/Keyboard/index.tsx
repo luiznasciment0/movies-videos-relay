@@ -9,7 +9,6 @@ const rowLength = 6
 
 const Keyboard = () => {
   const [inputValue, setInputValue] = useState('')
-  const [selected, setSelected] = useState()
   const [cursor, setCursor] = useState(0)
 
   const currentItem = keyboardKeys[cursor]
@@ -56,17 +55,26 @@ const Keyboard = () => {
     }
   })
 
+  useKeyPress({
+    key: 'Enter',
+    action: () => {
+      const currentValue = currentItem?.value
+      const isBackspace = currentValue === 'backspace'
+      setInputValue((prevState) => {
+        if (isBackspace) {
+          return String(prevState).slice(0, -1)
+        }
+        return `${prevState + currentValue}`
+      })
+    }
+  })
+
   return (
     <div>
-      <p>{inputValue}AAA</p>
+      <p>{inputValue} AAA</p>
       <StyledKeyboard>
         {keyboardKeys.map((item, index) => (
-          <KeyboardKey
-            key={index}
-            active={index === cursor}
-            item={item}
-            setSelected={setSelected}
-          />
+          <KeyboardKey key={index} active={index === cursor} item={item} />
         ))}
       </StyledKeyboard>
     </div>
