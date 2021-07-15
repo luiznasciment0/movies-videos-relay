@@ -13,17 +13,17 @@ const Keyboard = () => {
   const [cursor, setCursor] = useState(0)
 
   const currentItem = keyboardKeys[cursor]
-  const rightItemsLength = rowLength - currentItem.positionInRow
-  const leftItemsLength = currentItem.positionInRow - 1
+  const rightItemsLength = rowLength - currentItem?.positionInRow
+  const leftItemsLength = currentItem?.positionInRow - 1
 
   useKeyPress({
     key: 'ArrowDown',
     action: () => {
       setCursor((prevState) => {
         const nextPosition = prevState + rightItemsLength + leftItemsLength + 1
-        const exceededArray = nextPosition > keyboardKeys.length
+        const exceededArray = nextPosition > keyboardKeys.length - 1
 
-        return exceededArray ? keyboardKeys.length : nextPosition
+        return exceededArray ? keyboardKeys.length - 1 : nextPosition
       })
     }
   })
