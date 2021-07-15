@@ -2,13 +2,14 @@ import styled from 'styled-components'
 
 export const ParentGrid = styled.div`
   display: grid;
+  padding: 3rem;
   grid-template-columns: auto 1fr 1fr;
 `
 
 export const LeftSide = styled.div`
   grid-column: 1 / 2;
   transition-duration: 0.3s;
-  &:hover {
+  &:focus {
     background: #fff;
     svg {
       fill: #000;
@@ -19,7 +20,6 @@ export const LeftSide = styled.div`
 
 export const Main = styled.main`
   grid-column: 2 / 3;
-  background: pink;
   display: grid;
   place-items: center;
 `
