@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { Suspense, useRef } from 'react'
 
 import { TIcon } from 'models/IconType'
 
@@ -26,7 +26,9 @@ const Layout = () => {
         <Keyboard leftColumnRef={leftColumnRef} />
       </Main>
       <RightSide>
-        <FormSearch />
+        <Suspense fallback={'Loading...'}>
+          <FormSearch />
+        </Suspense>
       </RightSide>
     </ParentGrid>
   )
